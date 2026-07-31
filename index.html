@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panadería La San Cristóbalence C.A. — Menú e Inventario</title>
+  
+  <!-- Fuentes de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@600;800&family=Roboto:wght@400;500;700&family=Segoe+UI&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-principal: #b71c1c;
+      --color-secundario: #d4af37;
+      --fuente-principal: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--fuente-principal);
+      background-color: #ffffff; /* Fondo Blanco */
+      color: #1f2937;
+      padding-bottom: 60px;
+    }
+
+    /* Header */
+    header {
+      background: #ffffff;
+      border-bottom: 2px solid var(--color-secundario);
+      padding: 35px 20px 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo-img {
+      max-width: 220px;
+      max-height: 100px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+
+    header h1 {
+      color: var(--color-principal);
+      font-size: 2.1rem;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      color: var(--color-secundario);
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 25px auto;
+      padding: 0 15px;
+    }
+
+    /* Barra de Tasa */
+    .admin-bar {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tasa-info {
+      color: var(--color-principal);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .btn-admin-toggle {
+      background: #1f2937;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-admin-toggle:hover {
+      background: var(--color-principal);
+    }
+
+    /* Panel Admin */
+    .admin-panel {
+      display: none;
+      background: #f3f4f6;
+      border: 2px dashed var(--color-principal);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 25px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .admin-panel.active {
+      display: block;
+    }
+
+    .admin-panel h2 {
+      color: var(--color-principal);
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .admin-panel h3 {
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 10px;
+    }
+
+    .tasa-box label, .design-box label {
+      color: #4b5563;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .input-inline {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .input-inline input {
+      max-width: 150px;
+    }
+
+    .separator {
+      border: none;
+      border-top: 1px solid #d1d5db;
+      margin: 15px 0;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .admin-input, .admin-select {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 10px;
+      color: #1f2937;
+      font-size: 0.9rem;
+      outline: none;
+      width: 100%;
+    }
+
+    .input-color {
+      height: 40px;
+      padding: 2px;
+      cursor: pointer;
+    }
+
+    .file-input-box label {
+      display: block;
+      font-size: 0.8rem;
+      color: #4b5563;
+      margin-bottom: 4px;
+    }
+
+    .preview-box img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-guardar-prod {
+      background: var(--color-principal);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-cancelar {
+      background: #6b7280;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Pestañas */
+    .tabs-container {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+
+    .tab-btn {
+      background: #f3f4f6;
+      color: #4b5563;
+      border: 1px solid #e5e7eb;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--color-principal);
+      color: #ffffff;
+      border-color: var(--color-principal);
+    }
+
+    /* Tarjetas */
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .tarjeta {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+
+    .tarjeta:hover {
+      border-color: var(--color-secundario);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .tarjeta-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .tarjeta.agotado {
+      opacity: 0.5;
+      filter: grayscale(0.8);
+    }
+
+    .categoria-tag {
+      font-size: 0.75rem;
+      color: var(--color-principal);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .tarjeta-info h3 {
+      color: #111827;
+      font-size: 1.15rem;
+      margin: 4px 0 10px;
+    }
+
+    .precios-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .precio-usd {
+      color: var(--color-principal);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .precio-bs {
+      color: #6b7280;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .btn-pedido {
+      background: #25d366;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: 0.3s;
+    }
+
+    .btn-pedido:hover {
+      background: #128c7e;
+    }
+
+    /* Control Admin en Tarjeta */
+    .admin-card-controls {
+      display: none;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #d1d5db;
+    }
+
+    .modo-admin-activo .admin-card-controls {
+      display: flex;
+    }
+
+    .btn-card-action {
+      flex: 1;
+      padding: 6px;
+      font-size: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-edit { background: #374151; color: #fff; }
+    .btn-toggle { background: #6b7280; color: #fff; }
+    .btn-delete { background: #dc2626; color: #fff; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+      border-top: 1px solid #e5e7eb;
+      color: #9ca3af;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header-principal">
+    <div id="contenedor-logo"></div>
+    <h1 id="titulo-negocio">Panadería La San Cristóbalence C.A.</h1>
+    <p>«Un rincón andino en tu ciudad»</p>
+  </header>
+
+  <div class="container" id="main-container">
+    
+    <!-- Barra Superior: Tasa de Cambio -->
+    <div class="admin-bar">
+      <div class="tasa-info">
+        💱 Tasa de Cambio: <span id="txt-tasa-bcv">0.00</span> Bs./$
+      </div>
+      <button id="btn-salir-admin" class="btn-admin-toggle" style="display:none;" onclick="toggleModoAdmin()">🔒 Salir de Modo Admin</button>
+    </div>
+
+    <!-- Panel de Control Administrador -->
+    <div class="admin-panel" id="panel-admin">
+      <h2>🛠️ Panel de Administración y Personalización</h2>
+      
+      <!-- 1. Ajustes del Negocio y Tasa -->
+      <div class="admin-grid">
+        <div class="tasa-box">
+          <label>Tasa del Día (Bs.):</label>
+          <div class="input-inline">
+            <input type="number" step="0.01" id="input-nueva-tasa" class="admin-input" placeholder="Ej. 36.50">
+            <button class="btn-guardar-prod" onclick="guardarTasa()">Cambiar</button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="separator">
+
+      <!-- 2. Personalización Visual (Logo, Colores, Fuente) -->
+      <h3>🎨 Diseño y Marca</h3>
+      <div class="admin-grid design-box">
+        <div>
+          <label>Logo de la Panadería:</label>
+          <input type="file" id="input-logo" accept="image/*" class="admin-input" onchange="subirLogo(event)">
+          <button style="margin-top: 5px; font-size: 0.75rem; cursor: pointer;" onclick="quitarLogo()">Quitar Logo</button>
+        </div>
+
+        <div>
+          <label>Color Principal:</label>
+          <input type="color" id="color-primario" class="admin-input input-color" value="#b71c1c" onchange="actualizarColores()">
+        </div>
+
+        <div>
+          <label>Color Secundario (Detalles):</label>
+          <input type="color" id="color-secundario" class="admin-input input-color" value="#d4af37" onchange="actualizarColores()">
+        </div>
+
+        <div>
+          <label>Estilo de Tipografía:</label>
+          <select id="select-fuente" class="admin-select" onchange="actualizarFuente()">
+            <option value="'Segoe UI', system-ui, sans-serif">Moderna / Limpia (Default)</option>
+            <option value="'Montserrat', sans-serif">Geométrica / Elegante</option>
+            <option value="'Playfair Display', serif">Clásica / Tradicional</option>
+            <option value="'Caveat', cursive">Artesanal / Manuscrita</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="separator">
+
+      <!-- 3. Gestión de Productos -->
+      <h3 id="titulo-form-prod">➕ Agregar Nuevo Producto</h3>
+      <div class="admin-grid">
+        <input type="text" id="prod-nombre" class="admin-input" placeholder="Nombre del producto">
+        <select id="prod-categoria" class="admin-select">
+          <option value="Panes">Panes</option>
+          <option value="Pastelería Fría">Pastelería Fría</option>
+          <option value="Pastelería Seca">Pastelería Seca</option>
+          <option value="Bebidas">Bebidas</option>
+          <option value="Batidos y Merengadas">Batidos y Merengadas</option>
+          <option value="Entradas">Entradas</option>
+        </select>
+        <input type="number" step="0.01" id="prod-precio" class="admin-input" placeholder="Precio en USD ($)">
+        
+        <div class="file-input-box">
+          <label for="prod-imagen">Foto del producto:</label>
+          <input type="file" id="prod-imagen" accept="image/*" class="admin-input" onchange="convertirImagen(event)">
+        </div>
+      </div>
+
+      <div id="preview-container" class="preview-box"></div>
+
+      <div class="form-actions">
+        <button class="btn-guardar-prod" onclick="guardarProducto()">Guardar Producto</button>
+        <button class="btn-cancelar" onclick="limpiarFormulario()">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- Pestañas de Categorías -->
+    <div class="tabs-container" id="contenedor-tabs"></div>
+
+    <!-- Catálogo de Productos -->
+    <main class="catalogo" id="contenedor-productos"></main>
+
+  </div>
+
+  <footer>
+    <p>© Panadería La San Cristóbalence C.A. — San José de Guanipa</p>
+  </footer>
+
+  <script>
+    const numeroWhatsApp = "584248314889";
+    const CLAVE_ADMIN = "010120";
+
+    const categorias = ["Todos", "Panes", "Pastelería Fría", "Pastelería Seca", "Bebidas", "Batidos y Merengadas", "Entradas"];
+
+    // Configuración Persistente
+    let tasaCambio = parseFloat(localStorage.getItem('tasa_bcv')) || 36.50;
+    let configDiseño = JSON.parse(localStorage.getItem('config_diseno_panaderia')) || {
+      colorPrimario: '#b71c1c',
+      colorSecundario: '#d4af37',
+      fuente: "'Segoe UI', system-ui, sans-serif",
+      logo: ''
+    };
+
+    let modoAdmin = false;
+    let editandoId = null;
+    let imagenBase64 = "";
+
+    let productos = JSON.parse(localStorage.getItem('productos_panaderia')) || [
+      { id: 1, nombre: "Canilla", categoria: "Panes", precioUSD: 0.50, disponible: true, imagen: "" },
+      { id: 2, nombre: "Campesino", categoria: "Panes", precioUSD: 1.00, disponible: true, imagen: "" },
+      { id: 3, nombre: "Pan de Leche", categoria: "Panes", precioUSD: 1.50, disponible: true, imagen: "" },
+      { id: 4, nombre: "Torta Rellena", categoria: "Pastelería Fría", precioUSD: 2.50, disponible: true, imagen: "" },
+      { id: 5, nombre: "Marquesa de Chocolate", categoria: "Pastelería Fría", precioUSD: 2.00, disponible: true, imagen: "" },
+      { id: 6, nombre: "Bombón de Leche", categoria: "Pastelería Seca", precioUSD: 0.80, disponible: true, imagen: "" },
+      { id: 7, nombre: "Quesadilla", categoria: "Pastelería Seca", precioUSD: 1.00, disponible: true, imagen: "" },
+      { id: 8, nombre: "Cachito de Jamón", categoria: "Entradas", precioUSD: 1.20, disponible: true, imagen: "" }
+    ];
+
+    let categoriaActual = "Todos";
+
+    // MODO ADMINISTRADOR (Ctrl + Shift + A)
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        toggleModoAdmin();
+      }
+    });
+
+    function toggleModoAdmin() {
+      if (!modoAdmin) {
+        const pass = prompt("Ingresa la contraseña de Administrador:");
+        if (pass === CLAVE_ADMIN) {
+          modoAdmin = true;
+          document.getElementById('panel-admin').classList.add('active');
+          document.getElementById('main-container').classList.add('modo-admin-activo');
+          document.getElementById('btn-salir-admin').style.display = 'inline-block';
+          alert("¡Modo Administrador Activado!");
+        } else if (pass !== null) {
+          alert("Contraseña incorrecta.");
+        }
+      } else {
+        modoAdmin = false;
+        document.getElementById('panel-admin').classList.remove('active');
+        document.getElementById('main-container').classList.remove('modo-admin-activo');
+        document.getElementById('btn-salir-admin').style.display = 'none';
+      }
+    }
+
+    // APLICAR DISEÑO Y PERSONALIZACIÓN
+    function aplicarDiseño() {
+      document.documentElement.style.setProperty('--color-principal', configDiseño.colorPrimario);
+      document.documentElement.style.setProperty('--color-secundario', configDiseño.colorSecundario);
+      document.documentElement.style.setProperty('--fuente-principal', configDiseño.fuente);
+
+      document.getElementById('color-primario').value = configDiseño.colorPrimario;
+      document.getElementById('color-secundario').value = configDiseño.colorSecundario;
+      document.getElementById('select-fuente').value = configDiseño.fuente;
+
+      const contLogo = document.getElementById('contenedor-logo');
+      const tituloText = document.getElementById('titulo-negocio');
+
+      if (configDiseño.logo) {
+        contLogo.innerHTML = `<img src="${configDiseño.logo}" alt="Logo" class="logo-img">`;
+        tituloText.style.display = 'none';
+      } else {
+        contLogo.innerHTML = '';
+        tituloText.style.display = 'block';
+      }
+    }
+
+    function actualizarColores() {
+      configDiseño.colorPrimario = document.getElementById('color-primario').value;
+      configDiseño.colorSecundario = document.getElementById('color-secundario').value;
+      guardarDiseño();
+    }
+
+    function actualizarFuente() {
+      configDiseño.fuente = document.getElementById('select-fuente').value;
+      guardarDiseño();
+    }
+
+    function subirLogo(e) {
+      const archivo = e.target.files[0];
+      if (archivo) {
+        const lector = new FileReader();
+        lector.onload = function(evt) {
+          configDiseño.logo = evt.target.result;
+          guardarDiseño();
+        };
+        lector.readAsDataURL(archivo);
+      }
+    }
+
+    function quitarLogo() {
+      configDiseño.logo = '';
+      guardarDiseño();
+    }
+
+    function guardarDiseño() {
+      localStorage.setItem('config_diseno_panaderia', JSON.stringify(configDiseño));
+      aplicarDiseño();
+    }
+
+    // CONVERTIR IMAGEN DE PRODUCTO
+    function convertirImagen(e) {
+      const archivo = e.target.files[0];
+      if (archivo) {
+        const lector = new FileReader();
+        lector.onload = function(evt) {
+          imagenBase64 = evt.target.result;
+          document.getElementById('preview-container').innerHTML = `<img src="${imagenBase64}">`;
+        };
+        lector.readAsDataURL(archivo);
+      }
+    }
+
+    // GUARDAR TASA
+    function guardarTasa() {
+      const nuevaTasa = parseFloat(document.getElementById('input-nueva-tasa').value);
+      if (nuevaTasa > 0) {
+        tasaCambio = nuevaTasa;
+        localStorage.setItem('tasa_bcv', tasaCambio);
+        actualizarTasaUI();
+        cargarProductos();
+        alert("Tasa de cambio actualizada.");
+      }
+    }
+
+    function actualizarTasaUI() {
+      document.getElementById('txt-tasa-bcv').innerText = tasaCambio.toFixed(2);
+    }
+
+    // GUARDAR / EDITAR PRODUCTO
+    function guardarProducto() {
+      const nombre = document.getElementById('prod-nombre').value.trim();
+      const categoria = document.getElementById('prod-categoria').value;
+      const precioUSD = parseFloat(document.getElementById('prod-precio').value);
+
+      if (!nombre || isNaN(precioUSD)) {
+        alert("Completa el nombre y el precio.");
+        return;
+      }
+
+      if (editandoId !== null) {
+        productos = productos.map(p => {
+          if (p.id === editandoId) {
+            return { ...p, nombre, categoria, precioUSD, imagen: imagenBase64 || p.imagen };
+          }
+          return p;
+        });
+      } else {
+        const nuevoProd = { id: Date.now(), nombre, categoria, precioUSD, disponible: true, imagen: imagenBase64 };
+        productos.push(nuevoProd);
+      }
+
+      guardarEnStorage();
+      limpiarFormulario();
+      cargarProductos();
+    }
+
+    function editarProducto(id) {
+      const prod = productos.find(p => p.id === id);
+      if (prod) {
+        document.getElementById('prod-nombre').value = prod.nombre;
+        document.getElementById('prod-categoria').value = prod.categoria;
+        document.getElementById('prod-precio').value = prod.precioUSD;
+        imagenBase64 = prod.imagen || "";
+        if (imagenBase64) {
+          document.getElementById('preview-container').innerHTML = `<img src="${imagenBase64}">`;
+        }
+        editandoId = id;
+        document.getElementById('titulo-form-prod').innerText = "✏️ Editando: " + prod.nombre;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function toggleDisponibilidad(id) {
+      productos = productos.map(p => p.id === id ? { ...p, disponible: !p.disponible } : p);
+      guardarEnStorage();
+      cargarProductos();
+    }
+
+    function eliminarProducto(id) {
+      if (confirm("¿Estás seguro de eliminar este producto?")) {
+        productos = productos.filter(p => p.id !== id);
+        guardarEnStorage();
+        cargarProductos();
+      }
+    }
+
+    function limpiarFormulario() {
+      document.getElementById('prod-nombre').value = "";
+      document.getElementById('prod-precio').value = "";
+      document.getElementById('prod-imagen').value = "";
+      document.getElementById('preview-container').innerHTML = "";
+      imagenBase64 = "";
+      editandoId = null;
+      document.getElementById('titulo-form-prod').innerText = "➕ Agregar Nuevo Producto";
+    }
+
+    function guardarEnStorage() {
+      localStorage.setItem('productos_panaderia', JSON.stringify(productos));
+    }
+
+    // RENDERIZADO
+    function cargarPestañas() {
+      const contenedorTabs = document.getElementById('contenedor-tabs');
+      contenedorTabs.innerHTML = "";
+
+      categorias.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = `tab-btn ${cat === categoriaActual ? 'active' : ''}`;
+        btn.innerText = cat;
+        btn.onclick = () => {
+          categoriaActual = cat;
+          cargarPestañas();
+          cargarProductos();
+        };
+        contenedorTabs.appendChild(btn);
+      });
+    }
+
+    function cargarProductos() {
+      const contenedor = document.getElementById('contenedor-productos');
+      contenedor.innerHTML = "";
+
+      const filtrados = categoriaActual === "Todos" 
+        ? productos 
+        : productos.filter(p => p.categoria === categoriaActual);
+
+      filtrados.forEach(prod => {
+        const precioBs = (prod.precioUSD * tasaCambio).toFixed(2);
+        const tarjeta = document.createElement('div');
+        tarjeta.className = `tarjeta ${!prod.disponible ? 'agotado' : ''}`;
+
+        const mensajeWA = encodeURIComponent(`Hola Panadería La San Cristóbalence, quisiera ordenar: ${prod.nombre} ($${prod.precioUSD.toFixed(2)} / ${precioBs} Bs.)`);
+        const enlaceWA = `https://wa.me/${numeroWhatsApp}?text=${mensajeWA}`;
+
+        const foto = prod.imagen || 'https://via.placeholder.com/300x200?text=Panaderia';
+
+        tarjeta.innerHTML = `
+          <div>
+            <img src="${foto}" alt="${prod.nombre}" class="tarjeta-img">
+            <span class="categoria-tag">${prod.categoria}</span>
+            <h3>${prod.nombre} ${!prod.disponible ? '(Agotado)' : ''}</h3>
+            
+            <div class="precios-box">
+              <span class="precio-usd">$${prod.precioUSD.toFixed(2)}</span>
+              <span class="precio-bs">${precioBs} Bs.</span>
+            </div>
+          </div>
+
+          <div>
+            <a href="${enlaceWA}" target="_blank" class="btn-pedido">Pedir por WhatsApp 📲</a>
+            
+            <div class="admin-card-controls">
+              <button class="btn-card-action btn-edit" onclick="editarProducto(${prod.id})">✏️ Editar</button>
+              <button class="btn-card-action btn-toggle" onclick="toggleDisponibilidad(${prod.id})">${prod.disponible ? '🚫 Agotar' : '✅ Activar'}</button>
+              <button class="btn-card-action btn-delete" onclick="eliminarProducto(${prod.id})">🗑️</button>
+            </div>
+          </div>
+        `;
+
+        contenedor.appendChild(tarjeta);
+      });
+    }
+
+    // Inicialización
+    aplicarDiseño();
+    actualizarTasaUI();
+    cargarPestañas();
+    cargarProductos();
+  </script>
+
+</body>
+</html>
