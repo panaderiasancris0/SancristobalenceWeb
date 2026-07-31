@@ -3,87 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panadería El Sancristobaleño - Menú Digital</title>
+  <title>Panadería La San Cristóbalence C.A. — Menú e Inventario</title>
+  
+  <!-- Fuentes de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@600;800&family=Roboto:wght@400;500;700&family=Segoe+UI&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --primary: #d97706;
-      --primary-hover: #b45309;
-      --bg: #fef3c7;
-      --card-bg: #ffffff;
-      --text: #1f2937;
-      --danger: #dc2626;
-      --success: #16a34a;
+      --color-principal: #b71c1c;
+      --color-secundario: #d4af37;
+      --fuente-principal: 'Segoe UI', system-ui, sans-serif;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      background-color: #f3f4f6;
-      color: var(--text);
+      font-family: var(--fuente-principal);
+      background-color: #ffffff; /* Fondo Blanco */
+      color: #1f2937;
       padding-bottom: 60px;
     }
 
+    /* Header */
     header {
-      background-color: var(--primary);
-      color: white;
+      background: #ffffff;
+      border-bottom: 2px solid var(--color-secundario);
+      padding: 35px 20px 20px;
       text-align: center;
-      padding: 1.5rem 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo-img {
+      max-width: 220px;
+      max-height: 100px;
+      object-fit: contain;
+      margin-bottom: 8px;
     }
 
     header h1 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
+      color: var(--color-principal);
+      font-size: 2.1rem;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    header p {
+      color: var(--color-secundario);
+      font-size: 1.05rem;
+      font-style: italic;
+      font-weight: 600;
     }
 
     .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 1rem;
+      max-width: 1100px;
+      margin: 25px auto;
+      padding: 0 15px;
     }
 
-    .admin-toggle {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 1rem;
-    }
-
-    .btn {
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.2s;
-    }
-
-    .btn:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .btn-danger {
-      background-color: var(--danger);
-    }
-
-    .btn-danger:hover {
-      background-color: #991b1b;
-    }
-
-    .admin-panel {
-      background: var(--card-bg);
-      padding: 1.5rem;
+    /* Barra de Tasa */
+    .admin-bar {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
       border-radius: 12px;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      border: 2px solid var(--primary);
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tasa-info {
+      color: var(--color-principal);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .btn-admin-toggle {
+      background: #1f2937;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-admin-toggle:hover {
+      background: var(--color-principal);
+    }
+
+    /* Panel Admin */
+    .admin-panel {
       display: none;
+      background: #f3f4f6;
+      border: 2px dashed var(--color-principal);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 25px;
+      animation: fadeIn 0.4s ease;
     }
 
     .admin-panel.active {
@@ -91,347 +118,745 @@
     }
 
     .admin-panel h2 {
-      margin-bottom: 1rem;
-      color: var(--primary-hover);
-      border-bottom: 2px solid #f3f4f6;
-      padding-bottom: 0.5rem;
+      color: var(--color-principal);
+      font-size: 1.2rem;
+      margin-bottom: 15px;
     }
 
-    .admin-section {
-      margin-bottom: 1.5rem;
+    .admin-panel h3 {
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 10px;
     }
 
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.3rem;
+    .tasa-box label, .design-box label {
+      color: #4b5563;
+      font-size: 0.85rem;
       font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
     }
 
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      padding: 0.6rem;
+    .input-inline {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .input-inline input {
+      max-width: 250px;
+    }
+
+    .separator {
+      border: none;
+      border-top: 1px solid #d1d5db;
+      margin: 15px 0;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .admin-input, .admin-select {
+      background: #ffffff;
       border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 0.95rem;
+      border-radius: 8px;
+      padding: 10px;
+      color: #1f2937;
+      font-size: 0.9rem;
+      outline: none;
+      width: 100%;
     }
 
-    .category-list {
+    .input-color {
+      height: 40px;
+      padding: 2px;
+      cursor: pointer;
+    }
+
+    /* Estilos Gestión Categorías */
+    .lista-categorias-admin {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.8rem;
+      gap: 8px;
+      margin-top: 10px;
     }
 
-    .category-chip {
-      background: #f3f4f6;
-      padding: 0.4rem 0.8rem;
+    .chip-categoria {
+      background: #ffffff;
+      border: 1px solid #d1d5db;
       border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.85rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    .category-chip button {
-      background: none;
-      border: none;
-      color: var(--danger);
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-    }
-
-    .filters {
-      display: flex;
-      gap: 0.5rem;
-      overflow-x: auto;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .filter-btn {
-      background: white;
-      border: 1px solid #d1d5db;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      white-space: nowrap;
-      cursor: pointer;
+      gap: 6px;
       font-weight: 600;
     }
 
-    .filter-btn.active {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-
-    .product-card {
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      background: #e5e7eb;
-    }
-
-    .product-info {
-      padding: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .product-title {
+    .btn-borrar-cat {
+      background: none;
+      border: none;
+      color: #dc2626;
+      font-weight: bold;
+      cursor: pointer;
       font-size: 1rem;
-      font-weight: bold;
-      margin-bottom: 0.3rem;
+      line-height: 1;
     }
 
-    .product-desc {
-      font-size: 0.85rem;
-      color: #6b7280;
-      margin-bottom: 0.8rem;
-      flex-grow: 1;
+    .file-input-box label {
+      display: block;
+      font-size: 0.8rem;
+      color: #4b5563;
+      margin-bottom: 4px;
     }
 
-    .product-price {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: var(--primary-hover);
-      margin-bottom: 0.5rem;
+    .preview-box img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
     }
 
-    .actions {
+    .form-actions {
       display: flex;
-      gap: 0.5rem;
+      gap: 10px;
     }
 
-    .actions .btn {
-      flex: 1;
+    .btn-guardar-prod {
+      background: var(--color-principal);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-cancelar {
+      background: #6b7280;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Pestañas */
+    .tabs-container {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+
+    .tab-btn {
+      background: #f3f4f6;
+      color: #4b5563;
+      border: 1px solid #e5e7eb;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--color-principal);
+      color: #ffffff;
+      border-color: var(--color-principal);
+    }
+
+    /* Tarjetas */
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .tarjeta {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+
+    .tarjeta:hover {
+      border-color: var(--color-secundario);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .tarjeta-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .tarjeta.agotado {
+      opacity: 0.5;
+      filter: grayscale(0.8);
+    }
+
+    .categoria-tag {
+      font-size: 0.75rem;
+      color: var(--color-principal);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .tarjeta-info h3 {
+      color: #111827;
+      font-size: 1.15rem;
+      margin: 4px 0 10px;
+    }
+
+    .precios-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .precio-usd {
+      color: var(--color-principal);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .precio-bs {
+      color: #6b7280;
       font-size: 0.85rem;
-      padding: 0.4rem;
+      font-weight: 600;
+    }
+
+    .btn-pedido {
+      background: #25d366;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: 0.3s;
+    }
+
+    .btn-pedido:hover {
+      background: #128c7e;
+    }
+
+    /* Control Admin en Tarjeta */
+    .admin-card-controls {
+      display: none;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #d1d5db;
+    }
+
+    .modo-admin-activo .admin-card-controls {
+      display: flex;
+    }
+
+    .btn-card-action {
+      flex: 1;
+      padding: 6px;
+      font-size: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-edit { background: #374151; color: #fff; }
+    .btn-toggle { background: #6b7280; color: #fff; }
+    .btn-delete { background: #dc2626; color: #fff; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+      border-top: 1px solid #e5e7eb;
+      color: #9ca3af;
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Panadería El Sancristobaleño</h1>
-    <p>¡El mejor pan caliente y repostería!</p>
+  <header id="header-principal">
+    <div id="contenedor-logo"></div>
+    <h1 id="titulo-negocio">Panadería La San Cristóbalence C.A.</h1>
+    <p>«Un rincón andino en tu ciudad»</p>
   </header>
 
-  <div class="container">
+  <div class="container" id="main-container">
     
-    <!-- Botón de Modo Admin -->
-    <div class="admin-toggle">
-      <button class="btn" id="btn-toggle-admin" onclick="toggleAdmin()">⚙️ Panel Administrador</button>
+    <!-- Barra Superior: Tasa de Cambio -->
+    <div class="admin-bar">
+      <div class="tasa-info">
+        💱 Tasa de Cambio: <span id="txt-tasa-bcv">0.00</span> Bs./$
+      </div>
+      <button id="btn-salir-admin" class="btn-admin-toggle" style="display:none;" onclick="toggleModoAdmin()">🔒 Salir de Modo Admin</button>
     </div>
 
-    <!-- PANEL DE ADMINISTRACIÓN -->
-    <div class="admin-panel" id="admin-panel">
-      <h2>Panel de Administración</h2>
-
-      <!-- Sección 1: Gestión de Categorías -->
-      <div class="admin-section">
-        <h3>1. Gestionar Categorías</h3>
-        <div class="form-group" style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-          <input type="text" id="new-category-input" placeholder="Nombre de la nueva categoría">
-          <button class="btn" onclick="addCategory()">Agregar</button>
-        </div>
-        <div class="category-list" id="admin-category-list">
-          <!-- Se cargan dinámicamente -->
+    <!-- Panel de Control Administrador -->
+    <div class="admin-panel" id="panel-admin">
+      <h2>🛠️ Panel de Administración y Personalización</h2>
+      
+      <!-- 1. Ajustes del Negocio y Tasa -->
+      <div class="admin-grid">
+        <div class="tasa-box">
+          <label>Tasa del Día (Bs.):</label>
+          <div class="input-inline">
+            <input type="number" step="0.01" id="input-nueva-tasa" class="admin-input" placeholder="Ej. 36.50">
+            <button class="btn-guardar-prod" onclick="guardarTasa()">Cambiar</button>
+          </div>
         </div>
       </div>
 
-      <!-- Sección 2: Agregar Producto -->
-      <div class="admin-section">
-        <h3>2. Agregar / Editar Producto</h3>
-        <form id="product-form" onsubmit="saveProduct(event)">
-          <div class="form-group">
-            <label for="prod-name">Nombre del Producto</label>
-            <input type="text" id="prod-name" required placeholder="Ej: Pan Sobado">
-          </div>
-          <div class="form-group">
-            <label for="prod-category">Categoría</label>
-            <select id="prod-category" required>
-              <!-- Opciones dinámicas -->
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="prod-price">Precio ($ USD)</label>
-            <input type="number" step="0.01" id="prod-price" required placeholder="0.00">
-          </div>
-          <div class="form-group">
-            <label for="prod-desc">Descripción (opcional)</label>
-            <textarea id="prod-desc" rows="2" placeholder="Detalles de los ingredientes o ración"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="prod-img">URL de Imagen (opcional)</label>
-            <input type="url" id="prod-img" placeholder="https://ejemplo.com/imagen.jpg">
-          </div>
-          <button type="submit" class="btn" style="width: 100%;">Guardar Producto</button>
-        </form>
+      <hr class="separator">
+
+      <!-- 2. Gestión de Categorías (NUEVA SECCIÓN) -->
+      <h3>🏷️ Gestión de Categorías</h3>
+      <div class="input-inline" style="margin-bottom: 10px;">
+        <input type="text" id="input-nueva-categoria" class="admin-input" placeholder="Nombre de la nueva categoría">
+        <button class="btn-guardar-prod" onclick="agregarCategoria()">Agregar Categoría</button>
+      </div>
+      <div class="lista-categorias-admin" id="contenedor-categorias-admin"></div>
+
+      <hr class="separator">
+
+      <!-- 3. Personalización Visual (Logo, Colores, Fuente) -->
+      <h3>🎨 Diseño y Marca</h3>
+      <div class="admin-grid design-box">
+        <div>
+          <label>Logo de la Panadería:</label>
+          <input type="file" id="input-logo" accept="image/*" class="admin-input" onchange="subirLogo(event)">
+          <button style="margin-top: 5px; font-size: 0.75rem; cursor: pointer;" onclick="quitarLogo()">Quitar Logo</button>
+        </div>
+
+        <div>
+          <label>Color Principal:</label>
+          <input type="color" id="color-primario" class="admin-input input-color" value="#b71c1c" onchange="actualizarColores()">
+        </div>
+
+        <div>
+          <label>Color Secundario (Detalles):</label>
+          <input type="color" id="color-secundario" class="admin-input input-color" value="#d4af37" onchange="actualizarColores()">
+        </div>
+
+        <div>
+          <label>Estilo de Tipografía:</label>
+          <select id="select-fuente" class="admin-select" onchange="actualizarFuente()">
+            <option value="'Segoe UI', system-ui, sans-serif">Moderna / Limpia (Default)</option>
+            <option value="'Montserrat', sans-serif">Geométrica / Elegante</option>
+            <option value="'Playfair Display', serif">Clásica / Tradicional</option>
+            <option value="'Caveat', cursive">Artesanal / Manuscrita</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="separator">
+
+      <!-- 4. Gestión de Productos -->
+      <h3 id="titulo-form-prod">➕ Agregar Nuevo Producto</h3>
+      <div class="admin-grid">
+        <input type="text" id="prod-nombre" class="admin-input" placeholder="Nombre del producto">
+        <select id="prod-categoria" class="admin-select"></select>
+        <input type="number" step="0.01" id="prod-precio" class="admin-input" placeholder="Precio en USD ($)">
+        
+        <div class="file-input-box">
+          <label for="prod-imagen">Foto del producto:</label>
+          <input type="file" id="prod-imagen" accept="image/*" class="admin-input" onchange="convertirImagen(event)">
+        </div>
+      </div>
+
+      <div id="preview-container" class="preview-box"></div>
+
+      <div class="form-actions">
+        <button class="btn-guardar-prod" onclick="guardarProducto()">Guardar Producto</button>
+        <button class="btn-cancelar" onclick="limpiarFormulario()">Cancelar</button>
       </div>
     </div>
 
-    <!-- FILTROS PÚBLICOS -->
-    <div class="filters" id="public-filters">
-      <!-- Se llenan automáticamente -->
-    </div>
+    <!-- Pestañas de Categorías -->
+    <div class="tabs-container" id="contenedor-tabs"></div>
 
-    <!-- CATÁLOGO DE PRODUCTOS -->
-    <div class="product-grid" id="product-grid">
-      <!-- Productos cargados -->
-    </div>
+    <!-- Catálogo de Productos -->
+    <main class="catalogo" id="contenedor-productos"></main>
 
   </div>
 
-  <script>
-    // ESTADO INICIAL
-    let categories = JSON.parse(localStorage.getItem('san_categories')) || ['Panes', 'Dulces', 'Tortas', 'Bebidas'];
-    let products = JSON.parse(localStorage.getItem('san_products')) || [];
-    let currentFilter = 'Todas';
-    let isAdmin = false;
+  <footer>
+    <p>© Panadería La San Cristóbalence C.A. — San José de Guanipa</p>
+  </footer>
 
-    // INICIALIZACIÓN
-    document.addEventListener('DOMContentLoaded', () => {
-      renderCategories();
-      renderProducts();
+  <script>
+    const numeroWhatsApp = "584248314889";
+    const CLAVE_ADMIN = "010120";
+
+    // Categorías dinámicas guardadas en LocalStorage
+    let categorias = JSON.parse(localStorage.getItem('categorias_panaderia')) || [
+      "Panes", "Pastelería Fría", "Pastelería Seca", "Bebidas", "Batidos y Merengadas", "Entradas"
+    ];
+
+    // Configuración Persistente
+    let tasaCambio = parseFloat(localStorage.getItem('tasa_bcv')) || 36.50;
+    let configDiseño = JSON.parse(localStorage.getItem('config_diseno_panaderia')) || {
+      colorPrimario: '#b71c1c',
+      colorSecundario: '#d4af37',
+      fuente: "'Segoe UI', system-ui, sans-serif",
+      logo: ''
+    };
+
+    let modoAdmin = false;
+    let editandoId = null;
+    let imagenBase64 = "";
+
+    let productos = JSON.parse(localStorage.getItem('productos_panaderia')) || [
+      { id: 1, nombre: "Canilla", categoria: "Panes", precioUSD: 0.50, disponible: true, imagen: "" },
+      { id: 2, nombre: "Campesino", categoria: "Panes", precioUSD: 1.00, disponible: true, imagen: "" },
+      { id: 3, nombre: "Pan de Leche", categoria: "Panes", precioUSD: 1.50, disponible: true, imagen: "" },
+      { id: 4, nombre: "Torta Rellena", categoria: "Pastelería Fría", precioUSD: 2.50, disponible: true, imagen: "" },
+      { id: 5, nombre: "Marquesa de Chocolate", categoria: "Pastelería Fría", precioUSD: 2.00, disponible: true, imagen: "" },
+      { id: 6, nombre: "Bombón de Leche", categoria: "Pastelería Seca", precioUSD: 0.80, disponible: true, imagen: "" },
+      { id: 7, nombre: "Quesadilla", categoria: "Pastelería Seca", precioUSD: 1.00, disponible: true, imagen: "" },
+      { id: 8, nombre: "Cachito de Jamón", categoria: "Entradas", precioUSD: 1.20, disponible: true, imagen: "" }
+    ];
+
+    let categoriaActual = "Todos";
+
+    // MODO ADMINISTRADOR (Ctrl + Shift + A)
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        toggleModoAdmin();
+      }
     });
 
-    // Alternar vista Administrador
-    function toggleAdmin() {
-      isAdmin = !isAdmin;
-      document.getElementById('admin-panel').classList.toggle('active', isAdmin);
-      document.getElementById('btn-toggle-admin').innerText = isAdmin ? '❌ Cerrar Panel' : '⚙️ Panel Administrador';
-      renderProducts();
+    function toggleModoAdmin() {
+      if (!modoAdmin) {
+        const pass = prompt("Ingresa la contraseña de Administrador:");
+        if (pass === CLAVE_ADMIN) {
+          modoAdmin = true;
+          document.getElementById('panel-admin').classList.add('active');
+          document.getElementById('main-container').classList.add('modo-admin-activo');
+          document.getElementById('btn-salir-admin').style.display = 'inline-block';
+          alert("¡Modo Administrador Activado!");
+        } else if (pass !== null) {
+          alert("Contraseña incorrecta.");
+        }
+      } else {
+        modoAdmin = false;
+        document.getElementById('panel-admin').classList.remove('active');
+        document.getElementById('main-container').classList.remove('modo-admin-activo');
+        document.getElementById('btn-salir-admin').style.display = 'none';
+      }
     }
 
     // GESTIÓN DE CATEGORÍAS
-    function renderCategories() {
-      // 1. Renderizar chips en panel admin
-      const adminList = document.getElementById('admin-category-list');
-      adminList.innerHTML = categories.map((cat, index) => `
-        <div class="category-chip">
+    function actualizarOpcionesCategorias() {
+      // Llenar selector del formulario de productos
+      const select = document.getElementById('prod-categoria');
+      select.innerHTML = categorias.map(c => `<option value="${c}">${c}</option>`).join('');
+
+      // Llenar lista de gestión en Panel Admin
+      const contAdmin = document.getElementById('contenedor-categorias-admin');
+      contAdmin.innerHTML = categorias.map((cat, idx) => `
+        <div class="chip-categoria">
           <span>${cat}</span>
-          <button onclick="deleteCategory(${index})" title="Eliminar categoría">&times;</button>
+          <button class="btn-borrar-cat" onclick="eliminarCategoria(${idx})" title="Eliminar categoría">&times;</button>
         </div>
       `).join('');
 
-      // 2. Llenar select del formulario de productos
-      const select = document.getElementById('prod-category');
-      select.innerHTML = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
-
-      // 3. Renderizar filtros públicos
-      const filterBox = document.getElementById('public-filters');
-      const allCat = ['Todas', ...categories];
-      filterBox.innerHTML = allCat.map(cat => `
-        <button class="filter-btn ${currentFilter === cat ? 'active' : ''}" onclick="setFilter('${cat}')">${cat}</button>
-      `).join('');
+      cargarPestañas();
     }
 
-    function addCategory() {
-      const input = document.getElementById('new-category-input');
-      const value = input.value.trim();
-      if (value && !categories.includes(value)) {
-        categories.push(value);
-        saveCategoriesStorage();
-        input.value = '';
-        renderCategories();
+    function agregarCategoria() {
+      const input = document.getElementById('input-nueva-categoria');
+      const nueva = input.value.trim();
+      if (nueva && !categorias.includes(nueva)) {
+        categorias.push(nueva);
+        localStorage.setItem('categorias_panaderia', JSON.stringify(categorias));
+        input.value = "";
+        actualizarOpcionesCategorias();
       }
     }
 
-    function deleteCategory(index) {
-      if (confirm(`¿Seguro que deseas eliminar la categoría "${categories[index]}"?`)) {
-        categories.splice(index, 1);
-        saveCategoriesStorage();
-        renderCategories();
+    function eliminarCategoria(index) {
+      const catAEliminar = categorias[index];
+      if (confirm(`¿Deseas borrar la categoría "${catAEliminar}"?`)) {
+        categorias.splice(index, 1);
+        localStorage.setItem('categorias_panaderia', JSON.stringify(categorias));
+        if (categoriaActual === catAEliminar) categoriaActual = "Todos";
+        actualizarOpcionesCategorias();
+        cargarProductos();
       }
     }
 
-    function saveCategoriesStorage() {
-      localStorage.setItem('san_categories', JSON.stringify(categories));
-    }
+    // APLICAR DISEÑO Y PERSONALIZACIÓN
+    function aplicarDiseño() {
+      document.documentElement.style.setProperty('--color-principal', configDiseño.colorPrimario);
+      document.documentElement.style.setProperty('--color-secundario', configDiseño.colorSecundario);
+      document.documentElement.style.setProperty('--fuente-principal', configDiseño.fuente);
 
-    function setFilter(cat) {
-      currentFilter = cat;
-      renderCategories();
-      renderProducts();
-    }
+      document.getElementById('color-primario').value = configDiseño.colorPrimario;
+      document.getElementById('color-secundario').value = configDiseño.colorSecundario;
+      document.getElementById('select-fuente').value = configDiseño.fuente;
 
-    // GESTIÓN DE PRODUCTOS
-    function saveProduct(e) {
-      e.preventDefault();
-      const newProd = {
-        id: Date.now(),
-        name: document.getElementById('prod-name').value,
-        category: document.getElementById('prod-category').value,
-        price: parseFloat(document.getElementById('prod-price').value).toFixed(2),
-        desc: document.getElementById('prod-desc').value,
-        img: document.getElementById('prod-img').value || 'https://via.placeholder.com/300x200?text=Panaderia'
-      };
+      const contLogo = document.getElementById('contenedor-logo');
+      const tituloText = document.getElementById('titulo-negocio');
 
-      products.push(newProd);
-      localStorage.setItem('san_products', JSON.stringify(products));
-      document.getElementById('product-form').reset();
-      renderProducts();
-    }
-
-    function deleteProduct(id) {
-      if (confirm('¿Deseas eliminar este producto del menú?')) {
-        products = products.filter(p => p.id !== id);
-        localStorage.setItem('san_products', JSON.stringify(products));
-        renderProducts();
+      if (configDiseño.logo) {
+        contLogo.innerHTML = `<img src="${configDiseño.logo}" alt="Logo" class="logo-img">`;
+        tituloText.style.display = 'none';
+      } else {
+        contLogo.innerHTML = '';
+        tituloText.style.display = 'block';
       }
     }
 
-    function renderProducts() {
-      const grid = document.getElementById('product-grid');
-      let filtered = currentFilter === 'Todas' ? products : products.filter(p => p.category === currentFilter);
+    function actualizarColores() {
+      configDiseño.colorPrimario = document.getElementById('color-primario').value;
+      configDiseño.colorSecundario = document.getElementById('color-secundario').value;
+      guardarDiseño();
+    }
 
-      if (filtered.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 2rem;">No hay productos disponibles en esta categoría.</p>`;
+    function actualizarFuente() {
+      configDiseño.fuente = document.getElementById('select-fuente').value;
+      guardarDiseño();
+    }
+
+    function subirLogo(e) {
+      const archivo = e.target.files[0];
+      if (archivo) {
+        const lector = new FileReader();
+        lector.onload = function(evt) {
+          configDiseño.logo = evt.target.result;
+          guardarDiseño();
+        };
+        lector.readAsDataURL(archivo);
+      }
+    }
+
+    function quitarLogo() {
+      configDiseño.logo = '';
+      guardarDiseño();
+    }
+
+    function guardarDiseño() {
+      localStorage.setItem('config_diseno_panaderia', JSON.stringify(configDiseño));
+      aplicarDiseño();
+    }
+
+    // CONVERTIR IMAGEN DE PRODUCTO
+    function convertirImagen(e) {
+      const archivo = e.target.files[0];
+      if (archivo) {
+        const lector = new FileReader();
+        lector.onload = function(evt) {
+          imagenBase64 = evt.target.result;
+          document.getElementById('preview-container').innerHTML = `<img src="${imagenBase64}">`;
+        };
+        lector.readAsDataURL(archivo);
+      }
+    }
+
+    // GUARDAR TASA
+    function guardarTasa() {
+      const nuevaTasa = parseFloat(document.getElementById('input-nueva-tasa').value);
+      if (nuevaTasa > 0) {
+        tasaCambio = nuevaTasa;
+        localStorage.setItem('tasa_bcv', tasaCambio);
+        actualizarTasaUI();
+        cargarProductos();
+        alert("Tasa de cambio actualizada.");
+      }
+    }
+
+    function actualizarTasaUI() {
+      document.getElementById('txt-tasa-bcv').innerText = tasaCambio.toFixed(2);
+    }
+
+    // GUARDAR / EDITAR PRODUCTO
+    function guardarProducto() {
+      const nombre = document.getElementById('prod-nombre').value.trim();
+      const categoria = document.getElementById('prod-categoria').value;
+      const precioUSD = parseFloat(document.getElementById('prod-precio').value);
+
+      if (!nombre || isNaN(precioUSD)) {
+        alert("Completa el nombre y el precio.");
         return;
       }
 
-      grid.innerHTML = filtered.map(p => `
-        <div class="product-card">
-          <img src="${p.img}" class="product-img" alt="${p.name}">
-          <div class="product-info">
-            <div class="product-title">${p.name}</div>
-            <div class="product-desc">${p.desc || 'Fresco y recién horneado.'}</div>
-            <div class="product-price">$${p.price}</div>
-            <div class="actions">
-              <button class="btn btn-success" onclick="orderWs('${p.name}', '${p.price}')">pedir 📲</button>
-              ${isAdmin ? `<button class="btn btn-danger" onclick="deleteProduct(${p.id})">🗑️</button>` : ''}
-            </div>
-          </div>
-        </div>
-      `).join('');
+      if (editandoId !== null) {
+        productos = productos.map(p => {
+          if (p.id === editandoId) {
+            return { ...p, nombre, categoria, precioUSD, imagen: imagenBase64 || p.imagen };
+          }
+          return p;
+        });
+      } else {
+        const nuevoProd = { id: Date.now(), nombre, categoria, precioUSD, disponible: true, imagen: imagenBase64 };
+        productos.push(nuevoProd);
+      }
+
+      guardarEnStorage();
+      limpiarFormulario();
+      cargarProductos();
     }
 
-    function orderWs(name, price) {
-      const phone = "584120000000"; // Reemplazar por tu número de WhatsApp real
-      const text = encodeURIComponent(`¡Hola! Quisiera pedir: ${name} ($${price})`);
-      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    function editarProducto(id) {
+      const prod = productos.find(p => p.id === id);
+      if (prod) {
+        document.getElementById('prod-nombre').value = prod.nombre;
+        document.getElementById('prod-categoria').value = prod.categoria;
+        document.getElementById('prod-precio').value = prod.precioUSD;
+        imagenBase64 = prod.imagen || "";
+        if (imagenBase64) {
+          document.getElementById('preview-container').innerHTML = `<img src="${imagenBase64}">`;
+        }
+        editandoId = id;
+        document.getElementById('titulo-form-prod').innerText = "✏️ Editando: " + prod.nombre;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
+
+    function toggleDisponibilidad(id) {
+      productos = productos.map(p => p.id === id ? { ...p, disponible: !p.disponible } : p);
+      guardarEnStorage();
+      cargarProductos();
+    }
+
+    function eliminarProducto(id) {
+      if (confirm("¿Estás seguro de eliminar este producto?")) {
+        productos = productos.filter(p => p.id !== id);
+        guardarEnStorage();
+        cargarProductos();
+      }
+    }
+
+    function limpiarFormulario() {
+      document.getElementById('prod-nombre').value = "";
+      document.getElementById('prod-precio').value = "";
+      document.getElementById('prod-imagen').value = "";
+      document.getElementById('preview-container').innerHTML = "";
+      imagenBase64 = "";
+      editandoId = null;
+      document.getElementById('titulo-form-prod').innerText = "➕ Agregar Nuevo Producto";
+    }
+
+    function guardarEnStorage() {
+      localStorage.setItem('productos_panaderia', JSON.stringify(productos));
+    }
+
+    // RENDERIZADO
+    function cargarPestañas() {
+      const contenedorTabs = document.getElementById('contenedor-tabs');
+      contenedorTabs.innerHTML = "";
+
+      const todasLasCategorias = ["Todos", ...categorias];
+
+      todasLasCategorias.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = `tab-btn ${cat === categoriaActual ? 'active' : ''}`;
+        btn.innerText = cat;
+        btn.onclick = () => {
+          categoriaActual = cat;
+          cargarPestañas();
+          cargarProductos();
+        };
+        contenedorTabs.appendChild(btn);
+      });
+    }
+
+    function cargarProductos() {
+      const contenedor = document.getElementById('contenedor-productos');
+      contenedor.innerHTML = "";
+
+      const filtrados = categoriaActual === "Todos" 
+        ? productos 
+        : productos.filter(p => p.categoria === categoriaActual);
+
+      if (filtrados.length === 0) {
+        contenedor.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 2rem;">No hay productos disponibles en esta categoría.</p>`;
+        return;
+      }
+
+      filtrados.forEach(prod => {
+        const precioBs = (prod.precioUSD * tasaCambio).toFixed(2);
+        const tarjeta = document.createElement('div');
+        tarjeta.className = `tarjeta ${!prod.disponible ? 'agotado' : ''}`;
+
+        const mensajeWA = encodeURIComponent(`Hola Panadería La San Cristóbalence, quisiera ordenar: ${prod.nombre} ($${prod.precioUSD.toFixed(2)} / ${precioBs} Bs.)`);
+        const enlaceWA = `https://wa.me/${numeroWhatsApp}?text=${mensajeWA}`;
+
+        const foto = prod.imagen || 'https://via.placeholder.com/300x200?text=Panaderia';
+
+        tarjeta.innerHTML = `
+          <div>
+            <img src="${foto}" alt="${prod.nombre}" class="tarjeta-img">
+            <span class="categoria-tag">${prod.categoria}</span>
+            <h3>${prod.nombre} ${!prod.disponible ? '(Agotado)' : ''}</h3>
+            
+            <div class="precios-box">
+              <span class="precio-usd">$${prod.precioUSD.toFixed(2)}</span>
+              <span class="precio-bs">${precioBs} Bs.</span>
+            </div>
+          </div>
+
+          <div>
+            <a href="${enlaceWA}" target="_blank" class="btn-pedido">Pedir por WhatsApp 📲</a>
+            
+            <div class="admin-card-controls">
+              <button class="btn-card-action btn-edit" onclick="editarProducto(${prod.id})">✏️ Editar</button>
+              <button class="btn-card-action btn-toggle" onclick="toggleDisponibilidad(${prod.id})">${prod.disponible ? '🚫 Agotar' : '✅ Activar'}</button>
+              <button class="btn-card-action btn-delete" onclick="eliminarProducto(${prod.id})">🗑️</button>
+            </div>
+          </div>
+        `;
+
+        contenedor.appendChild(tarjeta);
+      });
+    }
+
+    // Inicialización
+    aplicarDiseño();
+    actualizarTasaUI();
+    actualizarOpcionesCategorias();
+    cargarProductos();
   </script>
+
 </body>
 </html>
